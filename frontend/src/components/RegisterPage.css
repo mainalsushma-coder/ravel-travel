@@ -1,0 +1,628 @@
+/* ==========================================================================
+   RAVEL Screen 3: Create Your Account (Register) Stylesheet
+   Designed in strict compliance with docs/DESIGN.md & Google Stitch Screen 3
+   Palette: #00685F (Primary Teal), #FAF9F6 (Parchment), #1A1C1A (Deep On-Surface)
+   ========================================================================== */
+
+/* Main Full-Screen Layout */
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: var(--surface-bg);
+  color: var(--on-surface);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Split-Screen Container */
+.register-split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   LEFT COLUMN: REGISTRATION FORM & HEADER
+   ========================================================================== */
+.register-form-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 64px 40px;
+  background-color: var(--surface-bg);
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Top Navigation Bar: Subpage Header Height 64px */
+.register-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+  margin-bottom: 20px;
+}
+
+/* Brand Link */
+.register-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.register-brand-emblem {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #00685F 0%, #0D9488 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 104, 95, 0.2);
+}
+
+.register-brand-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--on-surface);
+  line-height: 1;
+}
+
+/* Back to Explore Navigation Link */
+.register-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  background: transparent;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.register-back-btn:hover {
+  color: var(--primary);
+  border-color: rgba(0, 104, 95, 0.3);
+  background-color: var(--recessed-sand);
+  transform: translateX(-2px);
+}
+
+.register-back-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.register-back-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+/* Form Main Card Area */
+.register-form-card-wrapper {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 0 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Editorial Heading & Subtitle */
+.register-title-group {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.register-heading {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+}
+
+.register-subtitle {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 23px;
+  color: var(--on-surface-variant);
+}
+
+/* Form Layout */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Form Group & Input Styling (matching DESIGN.md Section 6.1) */
+.register-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.register-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.register-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.register-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--outline-variant);
+  background-color: var(--surface-low);
+  font-size: 14.5px;
+  line-height: 22px;
+  color: var(--on-surface);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.register-input::placeholder {
+  color: var(--outline);
+}
+
+.register-input:focus {
+  background-color: var(--surface-white);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 104, 95, 0.15);
+}
+
+.register-input.input-error {
+  border-color: var(--tertiary-coral);
+  background-color: #FFF5F5;
+}
+
+.register-input.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+/* Show/Hide Password Toggle inside right padding */
+.register-input-with-toggle {
+  padding-right: 48px;
+}
+
+.register-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 6px;
+  color: var(--outline);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.register-toggle-btn:hover {
+  color: var(--on-surface);
+  background-color: var(--surface-container);
+}
+
+/* Validation Feedback Alert */
+.register-error-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tertiary-coral);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* Terms and Privacy Checkbox Row (DESIGN.md Section 6.4) */
+.register-terms-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.register-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--on-surface-variant);
+  user-select: none;
+  text-align: left;
+  position: relative;
+}
+
+/* Accessible real checkbox input for browser & test automation */
+.register-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  z-index: 2;
+  top: 2px;
+  left: 0;
+}
+
+.register-checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--outline-variant);
+  background-color: var(--surface-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-top: 2px;
+  pointer-events: none;
+}
+
+.register-checkbox-input:focus-visible + .register-checkbox-custom {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.register-checkbox-custom.checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.register-checkbox-custom.checkbox-error {
+  border-color: var(--tertiary-coral);
+  background-color: #FFF5F5;
+}
+
+.terms-inline-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.terms-inline-link:hover {
+  color: var(--primary-hover);
+}
+
+/* Primary Action Button (DESIGN.md Section 5.1 & 7.3) */
+.btn-register-submit {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-primary-btn);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 8px;
+}
+
+.btn-register-submit:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(0, 104, 95, 0.42);
+}
+
+.btn-register-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-register-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Already have an account prompt */
+.login-redirect-prompt {
+  text-align: center;
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-top: 14px;
+}
+
+.login-redirect-link {
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0 4px;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.login-redirect-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Status / Feedback Banner */
+.register-status-banner {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.register-status-banner.status-info {
+  background-color: rgba(13, 148, 136, 0.1);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  color: var(--primary);
+}
+
+.register-status-banner.status-error {
+  background-color: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: var(--tertiary-coral);
+}
+
+/* Privacy & Security Disclaimer */
+.register-footer-info {
+  padding-top: 20px;
+  border-top: 1px solid var(--translucent-rule);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--outline);
+  line-height: 18px;
+}
+
+.register-security-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: PREMIUM SCENIC TRAVEL PHOTOGRAPHY SPLIT
+   ========================================================================== */
+.register-photo-column {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #0d3835;
+}
+
+.register-scenic-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.02);
+  transition: transform 8s ease-out;
+}
+
+.register-photo-column:hover .register-scenic-photo {
+  transform: scale(1.06);
+}
+
+/* Cinematic Atmospheric Gradient Overlay */
+.register-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.32) 0%,
+    rgba(0, 77, 70, 0.45) 45%,
+    rgba(15, 23, 42, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Travel Editorial Card over photograph */
+.register-photo-card {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  right: 48px;
+  max-width: 520px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 28px 32px;
+  color: #FFFFFF;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.register-chip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.register-chip-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(13, 148, 136, 0.25);
+  border: 1px solid rgba(13, 148, 136, 0.4);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary-fixed);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.register-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-fixed);
+  box-shadow: 0 0 0 2px rgba(137, 245, 231, 0.3);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.register-location-name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+
+.register-card-quote {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+
+.register-card-quote .editorial-italic {
+  font-style: italic;
+  color: var(--primary-fixed);
+}
+
+.register-card-subtext {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 16px;
+}
+
+.register-agents-synced-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.register-agent-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.register-agent-stat svg {
+  color: var(--primary-fixed);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   Desktop: 1025px+
+   Tablet: 768px - 1024px
+   Mobile: < 768px
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .register-form-column {
+    padding: 28px 40px;
+  }
+
+  .register-heading {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  .register-photo-card {
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+    padding: 24px;
+  }
+
+  .register-card-quote {
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .register-split-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .register-form-column {
+    padding: 24px 20px 36px;
+    min-height: 100vh;
+    justify-content: flex-start;
+  }
+
+  .register-header-bar {
+    height: 52px;
+    margin-bottom: 20px;
+  }
+
+  .register-form-card-wrapper {
+    max-width: 100%;
+    padding: 8px 0 20px;
+  }
+
+  .register-heading {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  /* Hide photo column on mobile for clean focused registration */
+  .register-photo-column {
+    display: none;
+  }
+}

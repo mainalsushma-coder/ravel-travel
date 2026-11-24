@@ -123,7 +123,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onNavigateToSignUp }) => {
     if (onNavigateToSignUp) {
       onNavigateToSignUp();
     } else {
-      navigate('/?signup=true');
+      navigate('/signup');
     }
   };
 

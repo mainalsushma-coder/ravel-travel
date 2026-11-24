@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from 'react-router-dom';
 import './App.css';
 import { LoginPage } from './components/LoginPage';
+import { RegisterPage } from './components/RegisterPage';
 import heroMunnarPhoto from './assets/images/hero-munnar.jpg';
 import ootyPhoto from './assets/images/ooty.jpg';
 import goaPhoto from './assets/images/goa.jpg';
@@ -166,24 +167,22 @@ const STEPS_DATA: StepItem[] = [
 
 function LandingPage() {
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const isSignUpRequested = searchParams.get('signup') === 'true';
+  const [searchParams] = useSearchParams();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [authModalOpen, setAuthModalOpen] = useState<boolean>(() => isSignUpRequested);
-  const [authModalTab, setAuthModalTab] = useState<'login' | 'signup'>(() =>
-    isSignUpRequested ? 'signup' : 'login'
-  );
-  const [authEmail, setAuthEmail] = useState<string>('');
-  const [authPassword, setAuthPassword] = useState<string>('');
-  const [authFullName, setAuthFullName] = useState<string>('');
-  const [authFeedback, setAuthFeedback] = useState<string | null>(null);
 
   // Active section tracking for smooth anchor highlighting
   const [activeSection, setActiveSection] = useState<string>('hero');
 
   // Destination planner selection modal
   const [selectedDestination, setSelectedDestination] = useState<DestinationItem | null>(null);
+
+  // If redirected with ?signup=true, navigate to /signup
+  useEffect(() => {
+    if (searchParams.get('signup') === 'true') {
+      navigate('/signup', { replace: true });
+    }
+  }, [searchParams, navigate]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -206,40 +205,6 @@ function LandingPage() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const openAuth = (tab: 'login' | 'signup') => {
-    setAuthModalTab(tab);
-    setAuthFeedback(null);
-    setAuthModalOpen(true);
-    setMobileMenuOpen(false);
-  };
-
-  const closeAuth = () => {
-    setAuthModalOpen(false);
-    setAuthFeedback(null);
-    if (searchParams.get('signup')) {
-      setSearchParams({}, { replace: true });
-    }
-  };
-
-  const handleAuthSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!authEmail) {
-      setAuthFeedback('Please enter your email address.');
-      return;
-    }
-    if (authModalTab === 'login') {
-      setAuthFeedback(`Welcome back to RAVEL! Authenticating ${authEmail}...`);
-    } else {
-      setAuthFeedback(`Welcome to RAVEL, ${authFullName || 'Traveller'}! Creating your profile...`);
-    }
-    setTimeout(() => {
-      closeAuth();
-      setAuthEmail('');
-      setAuthPassword('');
-      setAuthFullName('');
-    }, 1800);
-  };
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
@@ -336,7 +301,7 @@ function LandingPage() {
             <button
               type="button"
               className="btn-header-signup"
-              onClick={() => openAuth('signup')}
+              onClick={() => navigate('/signup')}
             >
               Sign Up
             </button>
@@ -411,7 +376,10 @@ function LandingPage() {
               <button
                 type="button"
                 className="btn-header-signup"
-                onClick={() => openAuth('signup')}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  navigate('/signup');
+                }}
               >
                 Sign Up
               </button>
@@ -478,7 +446,7 @@ function LandingPage() {
               <button
                 type="button"
                 className="btn-secondary-pill"
-                onClick={() => openAuth('signup')}
+                onClick={() => navigate('/signup')}
               >
                 <span>Start Planning</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -732,7 +700,7 @@ function LandingPage() {
                   <button
                     type="button"
                     className="btn-cta-primary"
-                    onClick={() => openAuth('signup')}
+                    onClick={() => navigate('/signup')}
                   >
                     Start Planning Your Trip
                   </button>
@@ -887,7 +855,7 @@ function LandingPage() {
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="footer-link" onClick={() => openAuth('signup')}>
+                  <button type="button" className="footer-link" onClick={() => navigate('/signup')}>
                     Create Account
                   </button>
                 </li>
@@ -915,133 +883,7 @@ function LandingPage() {
       </footer>
 
       {/* ====================================================================
-          8. AUTHENTICATION MODAL (LOGIN & SIGN UP)
-          Clean modal dialog for public visitors exploring account entry
-          ==================================================================== */}
-      {authModalOpen && (
-        <div
-          className="modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="auth-modal-title"
-          onClick={closeAuth}
-        >
-          <div
-            className="modal-content-card"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="modal-header-bar">
-              <h3 id="auth-modal-title" className="modal-title">
-                {authModalTab === 'login' ? 'Welcome Back' : 'Join RAVEL'}
-              </h3>
-              <button
-                type="button"
-                className="modal-close-btn"
-                aria-label="Close modal"
-                onClick={closeAuth}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="modal-tab-row" role="tablist">
-              <button
-                type="button"
-                role="tab"
-                aria-selected={authModalTab === 'login'}
-                className={`modal-tab ${authModalTab === 'login' ? 'active' : ''}`}
-                onClick={() => {
-                  setAuthModalTab('login');
-                  setAuthFeedback(null);
-                }}
-              >
-                Sign In
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={authModalTab === 'signup'}
-                className={`modal-tab ${authModalTab === 'signup' ? 'active' : ''}`}
-                onClick={() => {
-                  setAuthModalTab('signup');
-                  setAuthFeedback(null);
-                }}
-              >
-                Create Account
-              </button>
-            </div>
-
-            <form className="modal-body" onSubmit={handleAuthSubmit}>
-              {authFeedback && (
-                <div className="modal-feedback-alert" role="alert">
-                  {authFeedback}
-                </div>
-              )}
-
-              {authModalTab === 'signup' && (
-                <div className="form-group">
-                  <label htmlFor="fullname-input" className="form-label">
-                    Full Name
-                  </label>
-                  <input
-                    id="fullname-input"
-                    type="text"
-                    required
-                    placeholder="e.g. Varsha Sharma"
-                    className="form-input"
-                    value={authFullName}
-                    onChange={(e) => setAuthFullName(e.target.value)}
-                  />
-                </div>
-              )}
-
-              <div className="form-group">
-                <label htmlFor="email-input" className="form-label">
-                  Email Address
-                </label>
-                <input
-                  id="email-input"
-                  type="email"
-                  required
-                  placeholder="name@example.com"
-                  className="form-input"
-                  value={authEmail}
-                  onChange={(e) => setAuthEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password-input" className="form-label">
-                  Password
-                </label>
-                <input
-                  id="password-input"
-                  type="password"
-                  required
-                  placeholder="••••••••"
-                  className="form-input"
-                  value={authPassword}
-                  onChange={(e) => setAuthPassword(e.target.value)}
-                />
-              </div>
-
-              <button type="submit" className="modal-submit-btn">
-                {authModalTab === 'login' ? 'Sign In to RAVEL' : 'Create Free Account'}
-              </button>
-
-              <p className="modal-note">
-                By proceeding, you agree to RAVEL&apos;s Terms of Service and Privacy Policy.
-              </p>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ====================================================================
-          9. DESTINATION PLANNING PREVIEW MODAL
+          8. DESTINATION PLANNING PREVIEW MODAL
           Interactive preview dialog when clicking on a destination card
           ==================================================================== */}
       {selectedDestination && (
@@ -1102,7 +944,7 @@ function LandingPage() {
                   style={{ flex: 1, margin: 0 }}
                   onClick={() => {
                     setSelectedDestination(null);
-                    openAuth('signup');
+                    navigate('/signup');
                   }}
                 >
                   Generate {selectedDestination.name} Plan
@@ -1130,6 +972,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<RegisterPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
