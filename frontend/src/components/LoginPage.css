@@ -1,0 +1,618 @@
+/* ==========================================================================
+   RAVEL Screen 2: Login Page Stylesheet
+   Designed in strict compliance with docs/DESIGN.md & Google Stitch Sign In Screen
+   Palette: #00685F (Primary Teal), #FAF9F6 (Parchment), #1A1C1A (Deep On-Surface)
+   ========================================================================== */
+
+/* Main Full-Screen Layout */
+.login-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: var(--surface-bg);
+  color: var(--on-surface);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Split-Screen Container */
+.login-split-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   LEFT COLUMN: AUTHENTICATION FORM & HEADER
+   ========================================================================== */
+.login-form-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 32px 64px 40px;
+  background-color: var(--surface-bg);
+  position: relative;
+  overflow-y: auto;
+}
+
+/* Top Navigation Bar: Subpage Header Height 64px */
+.login-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+  margin-bottom: 24px;
+}
+
+/* Back to Explore Navigation Link */
+.back-to-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  background: transparent;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 8px 18px;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.back-to-explore-btn:hover {
+  color: var(--primary);
+  border-color: rgba(0, 104, 95, 0.3);
+  background-color: var(--recessed-sand);
+  transform: translateX(-2px);
+}
+
+.back-to-explore-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.back-to-explore-btn:hover svg {
+  transform: translateX(-3px);
+}
+
+/* Brand Link on Login Page */
+.login-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-brand-emblem {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #00685F 0%, #0D9488 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 104, 95, 0.2);
+}
+
+.login-brand-text {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--on-surface);
+  line-height: 1;
+}
+
+/* Form Main Card Area */
+.login-form-card-wrapper {
+  max-width: 440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Editorial Heading & Subtitle */
+.login-title-group {
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.login-heading {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 46px;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--on-surface);
+  margin-bottom: 10px;
+}
+
+.login-subtitle {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--on-surface-variant);
+}
+
+/* Form Layout */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Form Group & Input Styling (matching DESIGN.md Section 6.1) */
+.login-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: left;
+}
+
+.login-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.login-input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--outline-variant);
+  background-color: var(--surface-low);
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--on-surface);
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: var(--font-body);
+}
+
+.login-input::placeholder {
+  color: var(--outline);
+}
+
+.login-input:focus {
+  background-color: var(--surface-white);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 104, 95, 0.15);
+}
+
+.login-input.input-error {
+  border-color: var(--tertiary-coral);
+  background-color: #FFF5F5;
+}
+
+.login-input.input-error:focus {
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+/* Show/Hide Password Toggle inside right padding */
+.input-with-toggle {
+  padding-right: 48px;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 6px;
+  color: var(--outline);
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: var(--on-surface);
+  background-color: var(--surface-container);
+}
+
+/* Validation Feedback Alert */
+.field-error-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tertiary-coral);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+/* Keep me signed in & Forgot password row */
+.login-options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: -4px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Custom Checkbox (matching DESIGN.md Section 6.4: 16px x 16px, radius 4px) */
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+  color: var(--on-surface-variant);
+  user-select: none;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid var(--outline-variant);
+  background-color: var(--surface-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-custom.checked {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+}
+
+.forgot-password-link {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.forgot-password-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Primary Action Button (DESIGN.md Section 5.1 & 7.3) */
+.btn-login-submit {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: 9999px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-primary-btn);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 6px;
+}
+
+.btn-login-submit:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -4px rgba(0, 104, 95, 0.42);
+}
+
+.btn-login-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-login-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Create Account Navigation Link */
+.create-account-prompt {
+  text-align: center;
+  font-size: 14px;
+  color: var(--on-surface-variant);
+  margin-top: 14px;
+}
+
+.create-account-link {
+  font-weight: 700;
+  color: var(--primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0 4px;
+  transition: color 0.2s ease;
+  text-decoration: none;
+}
+
+.create-account-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Status / Feedback Banner */
+.login-status-banner {
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  line-height: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.login-status-banner.status-info {
+  background-color: rgba(13, 148, 136, 0.1);
+  border: 1px solid rgba(13, 148, 136, 0.25);
+  color: var(--primary);
+}
+
+.login-status-banner.status-error {
+  background-color: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  color: var(--tertiary-coral);
+}
+
+/* Privacy & Security Disclaimer */
+.login-footer-info {
+  padding-top: 24px;
+  border-top: 1px solid var(--translucent-rule);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--outline);
+  line-height: 18px;
+}
+
+.security-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.legal-inline-link {
+  color: var(--on-surface-variant);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 12px;
+}
+
+.legal-inline-link:hover {
+  color: var(--primary);
+}
+
+/* ==========================================================================
+   RIGHT COLUMN: PREMIUM SCENIC TRAVEL PHOTOGRAPHY SPLIT
+   ========================================================================== */
+.login-photo-column {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #0d3835;
+}
+
+.login-scenic-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transform: scale(1.02);
+  transition: transform 8s ease-out;
+}
+
+.login-photo-column:hover .login-scenic-photo {
+  transform: scale(1.06);
+}
+
+/* Cinematic Atmospheric Gradient Overlay */
+.login-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.3) 0%,
+    rgba(0, 77, 70, 0.45) 45%,
+    rgba(15, 23, 42, 0.88) 100%
+  );
+  pointer-events: none;
+}
+
+/* Floating Travel Editorial Card over photograph */
+.login-photo-card {
+  position: absolute;
+  bottom: 48px;
+  left: 48px;
+  right: 48px;
+  max-width: 520px;
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 28px 32px;
+  color: #FFFFFF;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  animation: gentleFloat 6s ease-in-out infinite;
+}
+
+.login-photo-chip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.photo-chip-route {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(13, 148, 136, 0.25);
+  border: 1px solid rgba(13, 148, 136, 0.4);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary-fixed);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.photo-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--primary-fixed);
+  box-shadow: 0 0 0 2px rgba(137, 245, 231, 0.3);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.photo-location-name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+
+.photo-card-quote {
+  font-family: var(--font-display);
+  font-size: 26px;
+  line-height: 34px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+}
+
+.photo-card-quote .editorial-italic {
+  font-style: italic;
+  color: var(--primary-fixed);
+}
+
+.photo-card-subtext {
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 16px;
+}
+
+.photo-agents-synced-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.photo-agent-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.photo-agent-stat svg {
+  color: var(--primary-fixed);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   Desktop: 1025px+
+   Tablet: 768px - 1024px
+   Mobile: < 768px
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .login-form-column {
+    padding: 28px 40px;
+  }
+
+  .login-heading {
+    font-size: 32px;
+    line-height: 40px;
+  }
+
+  .login-photo-card {
+    bottom: 32px;
+    left: 32px;
+    right: 32px;
+    padding: 24px;
+  }
+
+  .photo-card-quote {
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-split-container {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .login-form-column {
+    padding: 24px 20px 36px;
+    min-height: 100vh;
+    justify-content: flex-start;
+  }
+
+  .login-header-bar {
+    height: 52px;
+    margin-bottom: 24px;
+  }
+
+  .login-form-card-wrapper {
+    max-width: 100%;
+    padding: 10px 0 24px;
+  }
+
+  .login-heading {
+    font-size: 30px;
+    line-height: 38px;
+  }
+
+  /* Compact banner version of photo on mobile */
+  .login-photo-column {
+    display: none;
+  }
+}

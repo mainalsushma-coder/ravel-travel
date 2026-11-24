@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from 'react-router-dom';
 import './App.css';
+import { LoginPage } from './components/LoginPage';
 import heroMunnarPhoto from './assets/images/hero-munnar.jpg';
 import ootyPhoto from './assets/images/ooty.jpg';
 import goaPhoto from './assets/images/goa.jpg';
@@ -162,10 +164,16 @@ const STEPS_DATA: StepItem[] = [
    MAIN LANDING PAGE COMPONENT
    ========================================================================== */
 
-export default function App() {
+function LandingPage() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const isSignUpRequested = searchParams.get('signup') === 'true';
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
-  const [authModalTab, setAuthModalTab] = useState<'login' | 'signup'>('login');
+  const [authModalOpen, setAuthModalOpen] = useState<boolean>(() => isSignUpRequested);
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'signup'>(() =>
+    isSignUpRequested ? 'signup' : 'login'
+  );
   const [authEmail, setAuthEmail] = useState<string>('');
   const [authPassword, setAuthPassword] = useState<string>('');
   const [authFullName, setAuthFullName] = useState<string>('');
@@ -209,6 +217,9 @@ export default function App() {
   const closeAuth = () => {
     setAuthModalOpen(false);
     setAuthFeedback(null);
+    if (searchParams.get('signup')) {
+      setSearchParams({}, { replace: true });
+    }
   };
 
   const handleAuthSubmit = (e: React.FormEvent) => {
@@ -318,7 +329,7 @@ export default function App() {
             <button
               type="button"
               className="btn-header-login"
-              onClick={() => openAuth('login')}
+              onClick={() => navigate('/login')}
             >
               Login
             </button>
@@ -407,7 +418,10 @@ export default function App() {
               <button
                 type="button"
                 className="btn-header-login"
-                onClick={() => openAuth('login')}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  navigate('/login');
+                }}
               >
                 Login
               </button>
@@ -868,7 +882,7 @@ export default function App() {
                   </button>
                 </li>
                 <li>
-                  <button type="button" className="footer-link" onClick={() => openAuth('login')}>
+                  <button type="button" className="footer-link" onClick={() => navigate('/login')}>
                     Sign In Help
                   </button>
                 </li>
@@ -1107,5 +1121,17 @@ export default function App() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="*" element={<LandingPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
