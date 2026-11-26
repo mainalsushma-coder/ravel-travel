@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, useNavigate, useSearchParams } from 'reac
 import './App.css';
 import { LoginPage } from './components/LoginPage';
 import { RegisterPage } from './components/RegisterPage';
+import { PlanTripPage } from './components/PlanTripPage';
 import heroMunnarPhoto from './assets/images/hero-munnar.jpg';
 import ootyPhoto from './assets/images/ooty.jpg';
 import goaPhoto from './assets/images/goa.jpg';
@@ -974,6 +975,8 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/plan" element={<PlanTripPage />} />
+        <Route path="/plan-trip" element={<PlanTripPage />} />
         <Route path="*" element={<LandingPage />} />
       </Routes>
     </BrowserRouter>
